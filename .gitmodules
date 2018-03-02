@@ -4,3 +4,6 @@
 [submodule "clippy.js"]
 	path = clippy.js
 	url = https://github.com/smore-inc/clippy.js
+[submodule "speak.js"]
+	path = speak.js
+	url = https://github.com/kripken/speak.js
