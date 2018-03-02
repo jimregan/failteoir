@@ -1,3 +1,6 @@
 [submodule "pocketsphinx.js"]
 	path = pocketsphinx.js
 	url = https://github.com/syl22-00/pocketsphinx.js/
+[submodule "clippy.js"]
+	path = clippy.js
+	url = https://github.com/smore-inc/clippy.js
