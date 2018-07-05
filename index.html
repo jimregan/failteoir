@@ -8,7 +8,7 @@ var ctx = new (window.AudioContext || window.webkitAudioContext)();
 var convolver = ctx.createConvolver();
 convolver.connect(ctx.destination);
 var espeak = new Espeak('js/espeak.worker.js', function cb() {
-	espeak.setVoice.apply(espeak,['ga'])
+	espeak.setVoice.apply(espeak,['ga']);
 });
 var pusher;
 
@@ -17,6 +17,7 @@ var speak = function(text) {
     pusher.disconnect();
     pusher = null;
   }
+  var now = Date.now();
   var samples_queue = [];
   pusher = new PushAudioNode(ctx,
   function() {
@@ -31,8 +32,6 @@ var speak = function(text) {
         return;
       }
       pusher.push(new Float32Array(samples));
-      //if (events.length)
-      //  console.log(events.map((e) => e.type));
       if (now) {
         console.log("latency:", Date.now() - now);
         now = 0;
