@@ -5,9 +5,11 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="js/clippy.min.js"></script>
 <script type="text/javascript">
-    clippy.load('Links', function(agent) {
-        agent.show();
-    });
+  var magent;
+  clippy.load('Links', function(agent) {
+    agent.show();
+    magent = agent;
+  });
 </script>
 	<script type="text/javascript"src="js/espeak.js"></script>
 	<script>
@@ -34,8 +36,8 @@ var speak = function(text) {
     console.log('ended!', ctx.currentTime - pusher.startTime);
   });
   pusher.connect(ctx.destination);
-  //if(agent) {
-    agent.speak(text);
+  if(magent) {
+    magent.speak(text);
     espeak.synth(text, function(samples, events) {
       if (!samples) {
         pusher.close();
@@ -47,7 +49,7 @@ var speak = function(text) {
         now = 0;
       }
     });
-  //}
+  }
 }
 </script>
 </head>
