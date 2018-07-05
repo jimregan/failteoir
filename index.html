@@ -8,7 +8,7 @@ var ctx = new (window.AudioContext || window.webkitAudioContext)();
 var convolver = ctx.createConvolver();
 convolver.connect(ctx.destination);
 var espeak = new Espeak('js/espeak.worker.js', function cb() {
-	espeak.setVoice.apply(espeak,'ga')
+	espeak.setVoice.apply(espeak,['ga'])
 });
 var pusher;
 
