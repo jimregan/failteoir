@@ -10,7 +10,7 @@ convolver.connect(ctx.destination);
 var espeak = new Espeak('js/espeak.worker.js', 'ga');
 var pusher;
 
-function speak(text) {
+var speak = function(text) {
   if (pusher) {
     pusher.disconnect();
     pusher = null;
