@@ -6,4 +6,5 @@
 	url = https://github.com/smore-inc/clippy.js
 [submodule "speak.js"]
 	path = speak.js
-	url = https://github.com/kripken/speak.js
+	url = https://github.com/jimregan/speak.js
+	branch = local-changes-for-irish
