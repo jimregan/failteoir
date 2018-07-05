@@ -101,10 +101,65 @@ var gram = {numStates: 29, start: 0, end: 2, transitions: [
 	{from: 27, to: 2, word: "duit"},
 	{from: 28, to: 2, word: "duit"}];
 var words = [["dia", "dʲ ia"], ["dia(2)", "dʲ iˑə"], ["is", "ə sˠ"], ["is(2)", "i sˠ"], ["is(3)", "sˠ"], ["muire", "mˠ i ɾʲ ə"], ["duit", "d̪ˠ i tʲ"], ["duit(2)", "ɣ i tʲ"], ["pádraig", "pˠ aː d̪ˠ ɾˠ ə ɟ"], ["pádraig(2)", "pˠ aː ɾˠ ə ɟ"], ["bríd", "bʲ ɾʲ iː dʲ"], ["colm", "k o lˠ ə mˠ"], ["cille", "c i lʲ ə"], ["chara", "x a ɾˠ ə"], ["a", "ə"], ["a(2)", "SIL"]];
+
+      function startUserMedia(stream) {
+        var input = audio_context.createMediaStreamSource(stream);
+        window.firefox_audio_hack = input;
+        var audioRecorderConfig = {errorCallback: function(x) {updateStatus("Error from recorder: " + x);}};
+        recorder = new AudioRecorder(input, audioRecorderConfig);
+        // If a recognizer is ready, we pass it to the recorder
+        if (recognizer) recorder.consumers = [recognizer];
+        isRecorderReady = true;
+        updateUI();
+        updateStatus("Audio recorder ready");
+      };
+
+      var recognizer, recorder, callbackManager, audio_context;
+      var isRecorderReady = isRecognizerReady = false;
+      function spawnWorker(workerurl, onReady) {
+          recognizer = new Worker(workerurl);
+          recognizer.onmessage = function(event) {
+            onReady(recognizer);
+          };
+          recognizer.postMessage('');
+      };
+
+      function updateUI() {
+        if (isRecorderReady && isRecognizerReady) startBtn.disabled = stopBtn.disabled = false;
+      };
+
+      function updateStatus(newStatus) {
+        document.getElementById('current-status').innerHTML += "<br/>" + newStatus;
+      };
+      function displayRecording(display) {
+        if (display) document.getElementById('recording-indicator').innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        else document.getElementById('recording-indicator').innerHTML = "";
+      };
+
+      var startRecording = function() {
+      if (recorder && recorder.start(id)) displayRecording(true);
+      };
+
+      var stopRecording = function() {
+        recorder && recorder.stop();
+        displayRecording(false);
+      };
+
+      var recognizerReady = function() {
+           updateGrammars();
+           isRecognizerReady = true;
+           updateUI();
+           updateStatus("Recognizer ready");
+      };
+
+
 </script>
 </head>
 <body>
-	<button onclick="speak('dia dhuit');return false;">Talk</button>
+	  <button id="startBtn">Start</button>
+	  <button id="stopBtn">Stop</button>
+	  <div class="reco-output" id="current-status">Loading page</div>
+
 <div id="audio"></div>
 </body>
 </html>
