@@ -3,6 +3,41 @@
 	<title>Fáilteoir</title>
 	<link rel="stylesheet" type="text/css" href="css/clippy.css" media="all">
 	<script type="text/javascript"src="js/espeak.js"></script>
+	<script>
+var ctx = new (window.AudioContext || window.webkitAudioContext)();
+var convolver = ctx.createConvolver();
+convolver.connect(ctx.destination);
+var espeak = new Espeak('js/espeak.worker.js', 'ga');
+var pusher;
+
+function speak(text) {
+  if (pusher) {
+    pusher.disconnect();
+    pusher = null;
+  }
+  var samples_queue = [];
+  pusher = new PushAudioNode(ctx,
+  function() {
+    console.log('started!', ctx.currentTime, pusher.startTime);
+  },
+  function() {
+    console.log('ended!', ctx.currentTime - pusher.startTime);
+  });
+  espeak.synth(text, function(samples, events) {
+      if (!samples) {
+        pusher.close();
+        return;
+      }
+      pusher.push(new Float32Array(samples));
+      //if (events.length)
+      //  console.log(events.map((e) => e.type));
+      if (now) {
+        console.log("latency:", Date.now() - now);
+        now = 0;
+      }
+    });
+}
+
 </head>
 <body>
 	<button onclick="speak('dia dhuit', {voice: 'ga'});speak('Does English work?');return false;">Talk</button>
