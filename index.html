@@ -146,7 +146,6 @@ var words = [["dia", "dʲ ia"], ["dia(2)", "dʲ iˑə"], ["is", "ə sˠ"], ["is(
       };
 
       var recognizerReady = function() {
-           updateGrammars();
            isRecognizerReady = true;
            updateUI();
            updateStatus("Recognizer ready");
@@ -158,6 +157,9 @@ var words = [["dia", "dʲ ia"], ["dia(2)", "dʲ iˑə"], ["is", "ə sˠ"], ["is(
 <body>
 	  <button id="startBtn">Start</button>
 	  <button id="stopBtn">Stop</button>
+	  <span id="recording-indicator" style="border-radius: 10px; -moz-border
+		  -radius: 10px; -webkit-border-radius: 10px; width: 20px; height: 20px; backgroun
+		  d: red;"></span>
 	  <div class="reco-output" id="current-status">Loading page</div>
 
 <div id="audio"></div>
