@@ -51,6 +51,56 @@ var speak = function(text) {
     });
   }
 }
+
+/*
+#JSGF V1.0;
+
+grammar failteoir;
+
+public <greet> = <dd> | <dimd> | <dimdip> | <dimpipib> | <dimpipibic> | <ac> ;
+
+<dd> = dia duit ;
+<dimd> = dia is muire duit ;
+<dimdip> = dia is muire duit is pádraig ;
+<dimpipib> = dia is muire duit is pádraig is bríd ;
+<dimpipibic> = dia is muire duit is pádraig is bríd is colm cille ;
+<ac> = a chara; 
+*/
+var gram = {numStates: 29, start: 0, end: 2, transitions: [
+	{from: 0, to: 20, word: "dia"},
+	{from: 0, to: 25, word: "dia"},
+	{from: 0, to: 28, word: "dia"},
+	{from: 0, to: 1, word: "a"},
+	{from: 0, to: 3, word: "dia"},
+	{from: 0, to: 13, word: "dia"},
+	{from: 1, to: 2, word: "chara"},
+	{from: 3, to: 4, word: "is"},
+	{from: 4, to: 5, word: "muire"},
+	{from: 5, to: 6, word: "duit"},
+	{from: 6, to: 7, word: "is"},
+	{from: 7, to: 8, word: "pádraig"},
+	{from: 8, to: 9, word: "is"},
+	{from: 9, to: 10, word: "bríd"},
+	{from: 10, to: 11, word: "is"},
+	{from: 11, to: 12, word: "colm"},
+	{from: 12, to: 2, word: "cille"},
+	{from: 13, to: 14, word: "is"},
+	{from: 14, to: 15, word: "muire"},
+	{from: 15, to: 16, word: "duit"},
+	{from: 16, to: 17, word: "is"},
+	{from: 17, to: 18, word: "pádraig"},
+	{from: 18, to: 19, word: "is"},
+	{from: 19, to: 2, word: "bríd"},
+	{from: 20, to: 21, word: "is"},
+	{from: 21, to: 22, word: "muire"},
+	{from: 22, to: 23, word: "duit"},
+	{from: 23, to: 24, word: "is"},
+	{from: 24, to: 2, word: "pádraig"},
+	{from: 25, to: 26, word: "is"},
+	{from: 26, to: 27, word: "muire"},
+	{from: 27, to: 2, word: "duit"},
+	{from: 28, to: 2, word: "duit"}];
+var words = [["dia", "dʲ ia"], ["dia(2)", "dʲ iˑə"], ["is", "ə sˠ"], ["is(2)", "i sˠ"], ["is(3)", "sˠ"], ["muire", "mˠ i ɾʲ ə"], ["duit", "d̪ˠ i tʲ"], ["duit(2)", "ɣ i tʲ"], ["pádraig", "pˠ aː d̪ˠ ɾˠ ə ɟ"], ["pádraig(2)", "pˠ aː ɾˠ ə ɟ"], ["bríd", "bʲ ɾʲ iː dʲ"], ["colm", "k o lˠ ə mˠ"], ["cille", "c i lʲ ə"], ["chara", "x a ɾˠ ə"], ["a", "ə"], ["a(2)", "SIL"]];
 </script>
 </head>
 <body>
