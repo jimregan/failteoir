@@ -1,0 +1,18 @@
+<html>
+<head>
+	<title>Fáilteoir</title>
+	<link rel="stylesheet" type="text/css" href="css/clippy.css" media="all">
+	<script type="text/javascript"src="js/speakClient.js"></script>
+</head>
+<body>
+<button onclick="speak('dia dhuit', {voice: 'ga'});return false;">Talk</button>
+<div id="audio"></div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/clippy.min.js"></script>
+<script type="text/javascript">
+    clippy.load('Links', function(agent) {
+        agent.show();
+    });
+</script>
+</body>
+</html>
