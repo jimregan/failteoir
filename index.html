@@ -26,6 +26,7 @@ var speak = function(text) {
   function() {
     console.log('ended!', ctx.currentTime - pusher.startTime);
   });
+  pusher.connect(ctx.destination);
   espeak.synth(text, function(samples, events) {
       if (!samples) {
         pusher.close();
