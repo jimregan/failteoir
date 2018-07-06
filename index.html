@@ -142,7 +142,7 @@ var words = [["dia", "dʲ ia"], ["dia(2)", "dʲ iˑə"], ["is", "ə sˠ"], ["is(
       };
       var feedGrammar = function() {
 	  postRecognizerJob({command: 'addGrammar', data: gram},
-                             function(id) { recognizerReady(); }
+                             function(id) { recognizerReady(); });
       };
 
       var feedWords = function() {
