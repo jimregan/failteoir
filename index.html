@@ -133,7 +133,18 @@ var words = [["dia", encode_utf8("dʲ ia")], ["dia(2)", encode_utf8("dʲ iˑə")
         } else if(hyp == "dia is muire duit is pádraig is bríd is colm cille") {
           speak("bhó! níl mo chéad chomaoineach déanta agam fós");
         } else if(hyp == "a chara") {
-          // other
+          clippy.load('Clippy', function(agent) {
+            var text = "feicim go bhfuil litir á scríobh agat");
+            agent.show();
+            agent.speak(text);
+		        espeak.synth(text, function(samples, events) {
+              if (!samples) {
+                pusher.close();
+                return;
+              }
+              pusher.push(new Float32Array(samples));
+            });
+          }
         } else {
           speak("ní thuigim");
         }
@@ -191,14 +202,12 @@ var words = [["dia", encode_utf8("dʲ ia")], ["dia(2)", encode_utf8("dʲ iˑə")
         callbackManager = new CallbackManager();
         spawnWorker("js/recognizer.js", function(worker) {
             worker.onmessage = function(e) {
-/*
                 if (e.data.hasOwnProperty('id')) {
                   var clb = callbackManager.get(e.data['id']);
                   var data = {};
                   if( e.data.hasOwnProperty('data')) data = e.data.data;
                   if(clb) clb(data);
                 }
-*/
                 if (e.data.hasOwnProperty('hyp')) {
                   var newHyp = e.data.hyp;
                   if (e.data.hasOwnProperty('final') &&  e.data.final)
