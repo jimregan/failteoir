@@ -121,6 +121,23 @@ var words = [["dia", encode_utf8("dʲ ia")], ["dia(2)", encode_utf8("dʲ iˑə")
           };
           recognizer.postMessage('');
       };
+      function processHyp(hyp) {
+        if(hyp == "dia duit") {
+          speak("dia is muire duit");
+        } else if(hyp == "dia is muire duit") {
+          speak("dia is muire duit is pádraig");
+        } else if(hyp == "dia is muire duit is pádraig") {
+          speak("dia is muire duit is pádraig is bríd");
+        } else if(hyp == "dia is muire duit is pádraig is bríd") {
+          speak("dia is muire duit is pádraig is bríd is colm cille");
+        } else if(hyp == "dia is muire duit is pádraig is bríd is colm cille") {
+          speak("bhó! níl mo chéad chomaoineach déanta agam fós");
+        } else if(hyp == "a chara") {
+          // other
+        } else {
+          speak("ní thuigim");
+        }
+      };
 
       function updateUI() {
         if (isRecorderReady && isRecognizerReady) startBtn.disabled = stopBtn.disabled = false;
@@ -174,17 +191,19 @@ var words = [["dia", encode_utf8("dʲ ia")], ["dia(2)", encode_utf8("dʲ iˑə")
         callbackManager = new CallbackManager();
         spawnWorker("js/recognizer.js", function(worker) {
             worker.onmessage = function(e) {
+/*
                 if (e.data.hasOwnProperty('id')) {
                   var clb = callbackManager.get(e.data['id']);
                   var data = {};
                   if( e.data.hasOwnProperty('data')) data = e.data.data;
                   if(clb) clb(data);
                 }
+*/
                 if (e.data.hasOwnProperty('hyp')) {
                   var newHyp = e.data.hyp;
                   if (e.data.hasOwnProperty('final') &&  e.data.final)
-                  newHyp = "Final: " + newHyp;
-                  updateHyp(newHyp);
+                  //newHyp = "Final: " + newHyp;
+                  processHyp(newHyp);
                 }
                 if (e.data.hasOwnProperty('status') && (e.data.status == "error")) {
                   updateStatus("Error in " + e.data.command + " with code " + e.data.code);
