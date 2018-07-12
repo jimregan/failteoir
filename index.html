@@ -176,11 +176,10 @@ var words = [["dia", encode_utf8("dʲ ia")], ["dia(2)", encode_utf8("dʲ iˑə")
            updateUI();
            updateStatus("Recognizer ready");
       };
-      var ids = [];
       var feedGrammar = function() {
-           ids[0] = {id: 0};
            if(recognizer) {
-             postRecognizerJob({command: 'addWords', data: gram, callbackId: ids});
+             postRecognizerJob({command: 'addWords', data: gram, callbackId: callbackManager.add(
+                           function() {alert("Grammar added");});
              recognizerReady();
            } else {
              updateStatus("Recogniser not ready!");
