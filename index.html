@@ -173,16 +173,20 @@ var words = [["dia", encode_utf8("dʲ ia")], ["dia(2)", encode_utf8("dʲ iˑə")
 
       var recognizerReady = function() {
            isRecognizerReady = true;
-	   updateStatus("recReady");
+           updateStatus("recReady");
            updateUI();
            updateStatus("Recognizer ready");
       };
+      var ids = new Module.Integers();
       var feedGrammar = function() {
-	  postRecognizerJob({command: 'addGrammar', data: gram},
-                             function() { recognizerReady(); });
+           if(recognizer) {
+             recognizer.addGrammar(ids, gram);
+             recognizerReady();
+           } else {
+             updateStatus("Recogniser not ready!");
+           }
       };
-
-      var feedWords = function() {
+      var feedWords = function() {              
            postRecognizerJob({command: 'addWords', data: words},
                         function() { feedGrammar();});
       };
