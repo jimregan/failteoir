@@ -115,6 +115,7 @@ var words = [["dia", "dʲ ia"], ["dia(2)", "dʲ iˑə"], ["is", "ə sˠ"], ["is(
       };
 
       function updateUI() {
+	updateStatus("in updateUI");
         if (isRecorderReady && isRecognizerReady) startBtn.disabled = stopBtn.disabled = false;
       };
 
@@ -137,22 +138,26 @@ var words = [["dia", "dʲ ia"], ["dia(2)", "dʲ iˑə"], ["is", "ə sˠ"], ["is(
 
       var recognizerReady = function() {
            isRecognizerReady = true;
+	   updateStatus("recReady");
            updateUI();
            updateStatus("Recognizer ready");
       };
       var feedGrammar = function() {
 	  postRecognizerJob({command: 'addGrammar', data: gram},
-                             function(id) { recognizerReady(); });
+                             function(id) { 	   updateStatus("feedGrammar");
+recognizerReady(); });
       };
 
       var feedWords = function() {
            postRecognizerJob({command: 'addWords', data: words},
-                        function() {feedGrammar();});
+                        function() {	   updateStatus("feedWords");
+feedGrammar();});
       };
 
       var initRecognizer = function() {
           postRecognizerJob({command: 'initialize'},
                             function() {
+	   updateStatus("initRec");
                                         if (recorder) {
 						recorder.consumers = [recognizer];
 					}
