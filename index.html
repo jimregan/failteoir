@@ -134,10 +134,10 @@ var words = [["dia", encode_utf8("dʲ ia")], ["dia(2)", encode_utf8("dʲ iˑə")
           speak("bhó! níl mo chéad chomaoineach déanta agam fós");
         } else if(hyp == "a chara") {
           clippy.load('Clippy', function(agent) {
-            var text = "feicim go bhfuil litir á scríobh agat");
+            var text = "feicim go bhfuil litir á scríobh agat";
             agent.show();
             agent.speak(text);
-		        espeak.synth(text, function(samples, events) {
+            espeak.synth(text, function(samples, events) {
               if (!samples) {
                 pusher.close();
                 return;
