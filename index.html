@@ -68,7 +68,7 @@ public <greet> = <dd> | <dimd> | <dimdip> | <dimpipib> | <dimpipibic> | <ac> ;
 <dimpipibic> = dia is muire duit is pádraig is bríd is colm cille ;
 <ac> = a chara; 
 */
-var gram = {numStates: 29, start: 0, end: 2, id: 0, transitions: [
+var gram = {numStates: 29, start: 0, end: 2, transitions: [
 	{from: 0, to: 20, word: "dia"},
 	{from: 0, to: 25, word: "dia"},
 	{from: 0, to: 28, word: "dia"},
@@ -135,7 +135,7 @@ var words = [["dia", encode_utf8("dʲ ia")], ["dia(2)", encode_utf8("dʲ iˑə")
       };
 
       var startRecording = function() {
-      if (recorder && recorder.start(0)) displayRecording(true);
+      if (recorder && recorder.start()) displayRecording(true);
       };
 
       var stopRecording = function() {
