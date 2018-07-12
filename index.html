@@ -11,10 +11,10 @@
     magent = agent;
   });
 </script>
-	<script type="text/javascript"src="js/espeak.js"></script>
-	<script src="js/audioRecorder.js"></script>
-        <script src="js/callbackManager.js"></script>
-	<script>
+<script type="text/javascript"src="js/espeak.js"></script>
+<script src="js/audioRecorder.js"></script>
+<script src="js/callbackManager.js"></script>
+<script>
 var ctx = new (window.AudioContext || window.webkitAudioContext)();
 var convolver = ctx.createConvolver();
 convolver.connect(ctx.destination);
@@ -178,13 +178,13 @@ var words = [["dia", encode_utf8("dʲ ia")], ["dia(2)", encode_utf8("dʲ iˑə")
       };
       var feedGrammar = function() {
            if(recognizer) {
-             recognizer.addGrammar(ids, gram);
+             postRecognizerJob({command: 'addWords', data: gram, callbackId: {}});
              recognizerReady();
            } else {
              updateStatus("Recogniser not ready!");
            }
       };
-      var feedWords = function() {              
+      var feedWords = function() {
            postRecognizerJob({command: 'addWords', data: words},
                         function() { feedGrammar();});
       };
@@ -251,8 +251,6 @@ var words = [["dia", encode_utf8("dʲ ia")], ["dia(2)", encode_utf8("dʲ iˑə")
         updateUI();
         updateStatus("Audio recorder ready");
       };
-
-
 </script>
 </head>
 <body>
