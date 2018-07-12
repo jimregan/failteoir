@@ -151,21 +151,17 @@ var words = [["dia", encode_utf8("dʲ ia")], ["dia(2)", encode_utf8("dʲ iˑə")
       };
       var feedGrammar = function() {
 	  postRecognizerJob({command: 'addGrammar', data: gram},
-                             function(id) { 	   updateStatus("feedGrammar");
-recognizerReady(); });
+                             function(id) { recognizerReady(); });
       };
 
       var feedWords = function() {
            postRecognizerJob({command: 'addWords', data: words},
-                        function() {	   updateStatus("feedWords");
-feedGrammar();});
+                        function() { feedGrammar();});
       };
 
       var initRecognizer = function() {
-	   updateStatus("initRec1");
           postRecognizerJob({command: 'initialize', data: [["-hmm", "ga"]]},
                             function() {
-	   updateStatus("initRec2");
                                         if (recorder) {
 						recorder.consumers = [recognizer];
 					}
