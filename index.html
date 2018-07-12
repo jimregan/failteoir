@@ -107,7 +107,7 @@ var words = [["dia", encode_utf8("dʲ ia")], ["dia(2)", encode_utf8("dʲ iˑə")
       function encode_utf8(s) {
             return unescape(encodeURIComponent(s));
       }
-      var recognizer, recorder, callbackManager, audio_context, Module, ids;
+      var recognizer, recorder, callbackManager, audio_context;
       var isRecorderReady = isRecognizerReady = false;
       function postRecognizerJob(message, callback) {
         var msg = message || {};
@@ -201,7 +201,6 @@ var words = [["dia", encode_utf8("dʲ ia")], ["dia(2)", encode_utf8("dʲ iˑə")
         callbackManager = new CallbackManager();
         spawnWorker("js/recognizer.js", function(worker) {
             worker.onmessage = function(e) {
-                ids = Module.Integers();
                 if (e.data.hasOwnProperty('id')) {
                   var clb = callbackManager.get(e.data['id']);
                   var data = {};
