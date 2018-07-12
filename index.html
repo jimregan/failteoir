@@ -107,7 +107,7 @@ var words = [["dia", encode_utf8("dʲ ia")], ["dia(2)", encode_utf8("dʲ iˑə")
       function encode_utf8(s) {
             return unescape(encodeURIComponent(s));
       }
-      var recognizer, recorder, callbackManager, audio_context;
+      var recognizer, recorder, callbackManager, audio_context, Module, ids;
       var isRecorderReady = isRecognizerReady = false;
       function postRecognizerJob(message, callback) {
         var msg = message || {};
@@ -194,14 +194,15 @@ var words = [["dia", encode_utf8("dʲ ia")], ["dia(2)", encode_utf8("dʲ iˑə")
           postRecognizerJob({command: 'initialize', data: [["-hmm", "ga"]]},
                             function() {
                                         if (recorder) {
-						recorder.consumers = [recognizer];
-					}
+                                          recorder.consumers = [recognizer];
+                                        }
                                         feedWords();});
       };
       window.onload = function() {
         if (window.location.protocol != "https:")
           window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
         updateStatus("Initializing Web Audio and speech recognizer, waiting for approval to access your microphone");
+        ids = Module.Integers();
         callbackManager = new CallbackManager();
         spawnWorker("js/recognizer.js", function(worker) {
             worker.onmessage = function(e) {
