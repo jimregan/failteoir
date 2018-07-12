@@ -154,9 +154,10 @@ feedGrammar();});
       };
 
       var initRecognizer = function() {
+	   updateStatus("initRec1");
           postRecognizerJob({command: 'initialize', data: [["-hmm", "ga"]]},
                             function() {
-	   updateStatus("initRec");
+	   updateStatus("initRec2");
                                         if (recorder) {
 						recorder.consumers = [recognizer];
 					}
